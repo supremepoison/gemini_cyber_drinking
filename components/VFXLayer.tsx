@@ -49,10 +49,10 @@ export const VFXLayer: React.FC<VFXLayerProps> = ({ stats, gameState }) => {
 
       {/* Double Vision / Ghosting Layer - Only active when pulsing */}
       {isDrunk && (
-         <div className={`absolute inset-0 opacity-30 mix-blend-screen bg-transparent ${isGameOver ? '' : 'animate-pulse'}`}
+         <div className={`absolute inset-0 opacity-30 mix-blend-screen bg-transparent ${isGameOver ? '' : 'animate-pulse-slow'}`}
               style={{ transform: 'translateX(3px) translateY(1px)' }}>
-            {/* 
-               Note: To truly ghost the text is hard without duplicating DOM. 
+            {/*
+               Note: To truly ghost the text is hard without duplicating DOM.
                Instead we use a subtle chromatic aberration style overlay or just vague displacement feel.
                Here we just keep the layer ready for future potential.
             */}
@@ -60,8 +60,8 @@ export const VFXLayer: React.FC<VFXLayerProps> = ({ stats, gameState }) => {
       )}
 
       {/* Low Health Vignette - Red pulsing edges */}
-      <div 
-        className={`absolute inset-0 bg-[radial-gradient(circle,transparent_50%,rgba(153,27,27,0.4)_100%)] transition-opacity duration-500 ${stats[StatType.HEALTH] < 40 ? 'opacity-100 animate-pulse' : 'opacity-0'}`}
+      <div
+        className={`absolute inset-0 bg-[radial-gradient(circle,transparent_50%,rgba(153,27,27,0.4)_100%)] transition-opacity duration-500 ${stats[StatType.HEALTH] < 40 ? 'opacity-100 animate-pulse-slow' : 'opacity-0'}`}
       />
     </div>
   );
