@@ -30,9 +30,9 @@ export const SHOP_ITEMS: ShopItemContent[] = [
     id: 'milk',
     category: 'BODY',
     name: { en: 'Yoghurt', zh: '纯牛奶' },
-    description: { en: 'Coat stomach.', zh: '胃黏膜保护剂。被动减少少量身体伤害，但显得孩子气。' },
+    description: { en: 'Coat stomach.', zh: '胃黏膜保护剂。使用后减少本轮身体伤害50%。' },
     cost: 50,
-    effect: 'Passive: Small Health protect.'
+    effect: 'Active: Reduce Health damage by 50% this turn.'
   },
   {
     id: 'liver_pills',
@@ -43,12 +43,36 @@ export const SHOP_ITEMS: ShopItemContent[] = [
     effect: 'Active: +15 Health.'
   },
   {
-    id: 'honey_water',
+    id: 'energy_drink',
     category: 'BODY',
-    name: { en: 'Honey Water', zh: '保温杯蜂蜜水' },
-    description: { en: 'Sober up.', zh: '稍微稀释一点酒精。恢复 +10 清醒值。' },
-    cost: 100,
-    effect: 'Active: +10 Sobriety.'
+    name: { en: 'Energy Drink', zh: '红牛' },
+    description: { en: 'Quick boost.', zh: '功能性饮料。临时提升清醒度 +20，但效果短暂。' },
+    cost: 80,
+    effect: 'Active: +20 Sobriety.'
+  },
+  {
+    id: 'stomach_medicine',
+    category: 'BODY',
+    name: { en: 'Stomach Medicine', zh: '胃药' },
+    description: { en: 'Protect stomach.', zh: '胃药。使用后减少本轮身体伤害30%，可重复使用。' },
+    cost: 120,
+    effect: 'Active: Reduce Health damage by 30% this turn.'
+  },
+  {
+    id: 'vitamin_c',
+    category: 'BODY',
+    name: { en: 'Vitamin C', zh: '维生素C片' },
+    description: { en: 'Recovery aid.', zh: '维生素C。恢复 +8 身体值，+5 清醒值。性价比高。' },
+    cost: 60,
+    effect: 'Active: +8 Health, +5 Sobriety.'
+  },
+  {
+    id: 'ginkgo_biloba',
+    category: 'BODY',
+    name: { en: 'Ginkgo Biloba', zh: '银杏叶提取物' },
+    description: { en: 'Mental clarity.', zh: '银杏叶提取物。提升大脑清晰度，恢复 +18 清醒值。' },
+    cost: 180,
+    effect: 'Active: +18 Sobriety.'
   },
 
   // --- SOCIAL / FACE (High Cost / High Risk) ---
@@ -64,7 +88,7 @@ export const SHOP_ITEMS: ShopItemContent[] = [
     id: 'cigarettes',
     category: 'SOCIAL',
     name: { en: 'Premium Cigs', zh: '软中华' },
-    description: { en: 'Social tool.', zh: '社交硬通货。递烟可以缓解一次尴尬局面，恢复少量面子 (+10)。' },
+    description: { en: 'Social tool.', zh: '社交硬通货。递烟可以缓解尴尬局面，恢复面子 (+10)。可重复使用。' },
     cost: 150,
     effect: 'Active: +10 Face.'
   },
@@ -72,9 +96,33 @@ export const SHOP_ITEMS: ShopItemContent[] = [
     id: 'gift',
     category: 'SOCIAL',
     name: { en: 'Luxury Gift', zh: '限量伴手礼' },
-    description: { en: 'For the boss.', zh: '给领导的礼物。可抵消一次重大失误（避免面子归零），仅限一次。' },
+    description: { en: 'For the boss.', zh: '给领导的礼物。使用后恢复面子 +25，可重复使用。' },
     cost: 2500,
-    effect: 'Active: Save from Social Death.'
+    effect: 'Active: +25 Face.'
+  },
+  {
+    id: 'toast_skill',
+    category: 'SOCIAL',
+    name: { en: 'Toast Mastery', zh: '敬酒话术' },
+    description: { en: 'Toast expertise.', zh: '敬酒话术。使用后本轮面子收益 +50%，但必须喝酒。' },
+    cost: 600,
+    effect: 'Active: Face gain +50% this turn, must drink.'
+  },
+  {
+    id: 'wine_knowledge',
+    category: 'SOCIAL',
+    name: { en: 'Wine Knowledge', zh: '品酒知识' },
+    description: { en: 'Show expertise.', zh: '品酒知识。展示专业度，恢复面子 +15。' },
+    cost: 450,
+    effect: 'Active: +15 Face.'
+  },
+  {
+    id: 'network_connection',
+    category: 'SOCIAL',
+    name: { en: 'Network Connection', zh: '人脉关系' },
+    description: { en: 'Show connections.', zh: '提及共同认识的人。拉近关系，恢复面子 +20。' },
+    cost: 650,
+    effect: 'Active: +20 Face.'
   },
 
   // --- TACTIC / TRICKS (Strategic) ---
@@ -90,26 +138,50 @@ export const SHOP_ITEMS: ShopItemContent[] = [
     id: 'red_envelope',
     category: 'TACTIC',
     name: { en: 'Red Envelope', zh: '给服务员的红包' },
-    description: { en: 'Swap wine.', zh: '买通服务员换水。本轮免伤，但容易被发现，面子收益减半。' },
+    description: { en: 'Swap wine.', zh: '买通服务员换水。本轮免伤，但容易被发现，面子收益减半。可重复使用。' },
     cost: 600,
+    effect: 'Active: Drink without damage, low Face gain.'
+  },
+  {
+    id: 'towel',
+    category: 'TACTIC',
+    name: { en: 'Thick Towel', zh: '深色热毛巾' },
+    description: { en: 'Spit drink.', zh: '吐酒神器。使用后减少本轮清醒值扣除 50%。可重复使用。' },
+    cost: 50,
+    effect: 'Active: Reduce Sobriety loss by 50% this turn.'
+  },
+  {
+    id: 'water_bottle',
+    category: 'TACTIC',
+    name: { en: 'Water Bottle', zh: '矿泉水瓶' },
+    description: { en: 'Dilute alcohol.', zh: '偷偷用矿泉水稀释酒。使用后减少本轮清醒值扣除 40%。可重复使用。' },
+    cost: 20,
+    effect: 'Active: Reduce Sobriety loss by 40% this turn.'
+  },
+  {
+    id: 'distraction',
+    category: 'TACTIC',
+    name: { en: 'Distraction Tactics', zh: '转移注意力' },
+    description: { en: 'Change topic.', zh: '转移话题技巧。使用后本轮可以避免一次喝酒，不消耗属性。' },
+    cost: 150,
+    effect: 'Active: Skip one drink without penalty.'
+  },
+  {
+    id: 'water_swap',
+    category: 'TACTIC',
+    name: { en: 'Water Swap', zh: '偷换水' },
+    description: { en: 'Swap with water.', zh: '偷偷把酒换成水。本轮免伤，但容易被发现，面子收益减半。' },
+    cost: 250,
     effect: 'Active: Drink without damage, low Face gain.'
   },
   {
     id: 'fake_call',
     category: 'TACTIC',
     name: { en: 'Fake Call App', zh: '电话模拟器' },
-    description: { en: 'Escape.', zh: '躲出去一轮。虽然不喝酒，但把领导晾在一边会掉面子 (-10)。' },
-    cost: 0,
-    effect: 'Active: Skip turn, lose Face.'
+    description: { en: 'Escape and rest.', zh: '借口接电话躲出去。短暂休息恢复 +5 清醒值，但把领导晾在一边会掉面子 (-10)。' },
+    cost: 400,
+    effect: 'Active: +5 Sobriety, -10 Face.'
   },
-  {
-    id: 'towel',
-    category: 'TACTIC',
-    name: { en: 'Thick Towel', zh: '深色热毛巾' },
-    description: { en: 'Spit drink.', zh: '吐酒神器。减少 50% 的清醒值扣除。' },
-    cost: 50,
-    effect: 'Active: Reduce Sobriety loss.'
-  }
 ];
 
 // Badges for Endings
@@ -199,7 +271,7 @@ export const TRANSLATIONS = {
   zh: {
     startTitle: "逃酒",
     startTitle2: "刘超",
-    startDesc: "这是一场残酷的 20 轮商务宴请。\n\n**警告：游戏难度已提升。**\n\n道具只能救急，不能救命。\n你要在“身体崩溃”和“得罪领导”之间做极限选择。\n带上录音笔可能有意外收获。",
+    startDesc: "这是一场残酷的 20 轮商务宴请。\n\n道具只能救急，不能救命。\n你要在“身体崩溃”和“得罪领导”之间做极限选择。\n带上录音笔可能有意外收获。",
     startBtn: "入座",
     loading: "推杯换盏中...",
     loadingIdentity: "正在布置场景...",
@@ -248,7 +320,7 @@ export const FIXED_SCENARIO: Scenario = {
   description: '王总的局，今晚只有这一场，但要喝足 20 轮。你的竞争对手老张、还有那位传说中极其难搞的大客户“雷总”都在。',
   difficulty: 'Hard',
   storyIntro: `
-    **你是李默，32岁，销售副总监。**
+    **你是刘超，32岁，销售副总监。**
     
     今晚在“江南汇”顶级包厢，是一场定生死的局。
     主宾是掌握千万订单的雷总（千杯不倒），主陪是你的顶头上司王总（笑面虎）。
@@ -266,7 +338,7 @@ export const FIXED_SCENARIO: Scenario = {
     [StatType.HEALTH]: 70, 
     [StatType.SOBRIETY]: 100,
     [StatType.FACE]: 40,
-    [StatType.WEALTH]: 3000, // Reduced starting wealth to make choices harder
+    [StatType.WEALTH]: 5000, // 初始资金增加到5000
   },
   startEventId: 't1_seating'
 };

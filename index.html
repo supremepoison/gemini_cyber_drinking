@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Dinner</title>
+    <title>Yang Yu Ne？</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,6 +34,7 @@
               'fade-in': 'fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
               'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
               'glitch': 'glitch 1s linear infinite',
+              'blur-flicker': 'blurFlicker 2s ease-in-out infinite',
             },
             keyframes: {
               fadeIn: {
@@ -44,6 +45,20 @@
                 '2%, 64%': { transform: 'translate(2px,0) skew(0deg)' },
                 '4%, 60%': { transform: 'translate(-2px,0) skew(0deg)' },
                 '62%': { transform: 'translate(0,0) skew(5deg)' },
+              },
+              blurFlicker: {
+                '0%, 100%': { opacity: '0' },
+                '10%, 20%, 30%, 40%, 50%': { opacity: '0.8' },
+                '15%, 25%, 35%, 45%': { opacity: '0.3' },
+                '55%': { opacity: '0' },
+                '60%': { opacity: '0.9' },
+                '65%': { opacity: '0.2' },
+                '70%': { opacity: '0.7' },
+                '75%': { opacity: '0' },
+                '80%': { opacity: '0.6' },
+                '85%': { opacity: '0.1' },
+                '90%': { opacity: '0.5' },
+                '95%': { opacity: '0' },
               }
             }
           }

@@ -33,6 +33,9 @@ export const generateImage = async (description: string): Promise<string | undef
   }
 }
 
+// AI 生成结局功能已弃用，改用预设结局（victoryEndings.ts）
+// 如需启用 AI 生成，请恢复此函数
+/*
 export const generateEnding = async (
   stats: PlayerStats,
   turn: number,
@@ -43,7 +46,7 @@ export const generateEnding = async (
   try {
     const prompt = `
       Write a cinematic, noir-style epilogue for a story about a corporate employee surviving a night of intense business drinking.
-      
+
       Language: ${lang === 'zh' ? 'Simplified Chinese (简体中文)' : 'English'}
       Outcome: ${isVictory ? 'Victory/Survival' : 'Failure/Collapse'}
       Cause of End: ${reason}
@@ -67,6 +70,7 @@ export const generateEnding = async (
     return lang === 'zh' ? "意识模糊，记忆中断..." : "Consciousness fades...";
   }
 }
+*/
 
 // Replaced AI generation with Instant Local Lookup
 export const generateEvent = async (

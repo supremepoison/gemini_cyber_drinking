@@ -1,15 +1,15 @@
 import { GameEvent, StatType } from './types';
 
 // Images focusing on the dinner environment nuances
-const IMG_DINNER_OVERVIEW = "https://images.unsplash.com/photo-1550966871-3ed3c47e2ce2?q=80&w=2070"; 
+const IMG_DINNER_OVERVIEW = "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070"; // 已替换：原URL 404
 const IMG_DINNER_CLOSEUP = "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1974"; 
-const IMG_BOSS = "https://images.unsplash.com/photo-1556125574-d7f275d6eb0b?q=80&w=2670"; 
+const IMG_BOSS = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2670"; // 已替换：原URL 404
 const IMG_CHEERS = "https://images.unsplash.com/photo-1572116469696-31de0f17cc34?q=80&w=2574"; 
 const IMG_BILL = "https://images.unsplash.com/photo-1554672408-730436b60dde?q=80&w=2526"; 
 const IMG_TOILET = "https://images.unsplash.com/photo-1634733988138-bf2c3a2a13fa?q=80&w=2574"; 
 const IMG_CHAOS = "https://images.unsplash.com/photo-1516997121675-4c2d1684aa3e?q=80&w=2672"; 
 const IMG_DAWN = "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?q=80&w=2670";
-const IMG_SPY = "https://images.unsplash.com/photo-1496360341764-90807604f810?q=80&w=2670"; 
+const IMG_SPY = "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2670"; // 已替换：原URL 404 
 
 // Helper
 const createNode = (
@@ -67,7 +67,7 @@ export const STORY_TREE: Record<string, { zh: GameEvent, en: GameEvent }> = {
     [
       { text: "坐末席（最安全，最卑微）", outcome: "你选择了上菜口的位置。王总看都没看你一眼。虽然安全，但这让你的存在感极低。", stats: { FACE: -5, SOBRIETY: 0 }, next: 't2_cold_dish' },
       { text: "坐王总右手边（二陪位）", outcome: "高风险高回报。王总皱了皱眉：“小李今天很有冲劲嘛。”你在这个位置必须帮领导挡酒。", stats: { FACE: 10, HEALTH: -5, SOBRIETY: -5 }, next: 't2_cold_dish' }, 
-      { text: "道具：自带陈年茅台", item: 'vintage_wine', outcome: "你把3000块的茅台往桌上一放，全场侧目。王总大喜让你坐身边。但代价是，今晚这酒你必须带头喝。", stats: { FACE: 30, HEALTH: -10, WEALTH: 0 }, next: 't2_cold_dish' }
+      { text: "道具：自带陈年茅台", item: 'vintage_wine', outcome: "你把3000块的茅台往桌上一放，全场侧目。王总大喜让你坐身边。但代价是，今晚这酒你必须带头喝。", stats: { FACE: 30, HEALTH: -10 }, next: 't2_cold_dish' }
     ],
     "Turn 1: Seating", "Where do you sit?", []
   ),
@@ -183,7 +183,7 @@ export const STORY_TREE: Record<string, { zh: GameEvent, en: GameEvent }> = {
     "雷总醉醺醺地凑近你，声音压得很低：“小李，老张给我回扣3个点。你要是能给5个点，这单子归你。”\n**这是违法的。**",
     [
       { text: "装傻听不懂", outcome: "你选择了明哲保身。雷总很不满，觉得你不上道。", stats: { FACE: -10 }, next: 't11_loyalty' },
-      { text: "答应他", outcome: "你握住了雷总的手。你出卖了公司的底线，换取了订单。你的钱包鼓了，但良心黑了。", stats: { FACE: 20, WEALTH: 10000 }, next: 't11_loyalty' }, 
+      { text: "答应他", outcome: "你握住了雷总的手。你出卖了公司的底线，换取了订单。你的钱包鼓了，但良心黑了。", stats: { FACE: 20, WEALTH: 10000 }, next: 't11_dark_1' }, 
       { text: "开启录音笔 (内鬼线)", item: 'spy_pen', outcome: "你按下了录音键。“雷总，5个点怎么操作？走海外账户吗？”你诱导他说出了细节。你现在的身份是：告密者。", stats: { FACE: -5, SOBRIETY: 5 }, next: 't11_spy_1' }
     ],
     "Turn 10: Secret", "A dirty deal?", []
@@ -333,10 +333,57 @@ export const STORY_TREE: Record<string, { zh: GameEvent, en: GameEvent }> = {
     "第十六轮：摊牌时刻",
     "“雷总，王总，听听这个。” 你播放了录音。",
     [
-      { text: "我是为了正义", outcome: "你报了警。警察已经在楼下了。雷总面如死灰。", stats: { FACE: 0, WEALTH: 0 }, next: 'ending_whistleblower' },
-      { text: "给我500万，我删了", outcome: "你开价了。雷总恶狠狠地盯着你，然后转账了。你赢了钱，输了人。", stats: { WEALTH: 500000, FACE: -100 }, next: 't17_crash' }
+      { text: "我是为了正义", outcome: "你报了警。警察已经在楼下了。雷总面如死灰。", stats: { FACE: 0, WEALTH: 0 }, next: 't17_justice_1' },
+      { text: "给我500万，我删了", outcome: "你开价了。雷总恶狠狠地盯着你，然后转账了。你赢了钱，输了人。", stats: { WEALTH: 500000, FACE: -100 }, next: 't17_dark_1' }
     ],
     "Turn 16: Showdown", "Reveal the truth.", []
+  ),
+
+  // ============================
+  // JUSTICE BRANCH (Turns 17-20)
+  // ============================
+  
+  't17_justice_1': createNode(
+    't17_justice_1', 17, IMG_SPY,
+    "第十七轮：正义的代价",
+    "警察冲了进来。雷总和王总被戴上手铐。老张吓得瘫在椅子上。你站在一旁，看着这一切。",
+    [
+      { text: "配合调查", outcome: "你主动配合警方调查。虽然你的职业生涯结束了，但你的良心是清白的。", stats: { FACE: -30, SOBRIETY: 10 }, next: 't18_justice_2' },
+      { text: "保持沉默", outcome: "你选择保持沉默。警方理解你的处境，但你内心依然不安。", stats: { FACE: -20, SOBRIETY: 5 }, next: 't18_justice_2' }
+    ],
+    "Turn 17: Justice", "The police arrive.", []
+  ),
+
+  't18_justice_2': createNode(
+    't18_justice_2', 18, IMG_DAWN,
+    "第十八轮：媒体的关注",
+    "第二天，新闻头条都是这个案件。你成了\"告密者\"。行业里有人支持你，更多人恨你。",
+    [
+      { text: "接受采访", outcome: "你接受了媒体采访，讲述了真相。虽然会得罪更多人，但你觉得这是对的。", stats: { FACE: -40, SOBRIETY: 15 }, next: 't19_justice_3' },
+      { text: "保持低调", outcome: "你选择保持低调。真相已经大白，你不需要再说什么。", stats: { FACE: -20, SOBRIETY: 10 }, next: 't19_justice_3' }
+    ],
+    "Turn 18: Media", "The news breaks.", []
+  ),
+
+  't19_justice_3': createNode(
+    't19_justice_3', 19, IMG_DAWN,
+    "第十九轮：新的开始",
+    "一个月后，你收到了一个陌生公司的邀请。他们欣赏你的勇气和正义感。",
+    [
+      { text: "接受邀请", outcome: "你接受了新工作。虽然薪水不如以前，但你的内心是平静的。", stats: { FACE: 20, WEALTH: 5000 }, next: 't20_justice_end' },
+      { text: "拒绝，自己创业", outcome: "你决定自己创业。虽然困难，但你可以按照自己的原则做事。", stats: { FACE: 30, WEALTH: -2000 }, next: 't20_justice_end' }
+    ],
+    "Turn 19: New Start", "A new opportunity.", []
+  ),
+
+  't20_justice_end': createNode(
+    't20_justice_end', 20, IMG_DAWN,
+    "第二十轮：问心无愧",
+    "一年后，你站在新的办公室里。虽然失去了很多，但你从未后悔那个决定。",
+    [
+      { text: "继续前行", outcome: "你看着窗外的阳光，知道自己做了正确的选择。", stats: { FACE: 10, SOBRIETY: 10 }, next: 'ending_whistleblower' }
+    ],
+    "Turn 20: Peace", "Looking forward.", []
   ),
 
   'ending_whistleblower': createNode(
@@ -344,6 +391,126 @@ export const STORY_TREE: Record<string, { zh: GameEvent, en: GameEvent }> = {
     "结局：正道的光", 
     "警笛声响彻夜空。你看着他们被带走，长舒了一口气。虽然失业了，但你从未如此清醒。",
     [], "Ending: Justice", "Justice served.", []
+  ),
+
+  // ============================
+  // DARK BRANCH (Turns 17-20) - After accepting the deal
+  // ============================
+
+  't11_dark_1': createNode(
+    't11_dark_1', 11, IMG_BOSS,
+    "第十一轮：黑暗交易",
+    "你握住了雷总的手。你出卖了公司的底线，换取了订单。你的钱包鼓了，但良心黑了。",
+    [
+      { text: "继续交易", outcome: "你继续和雷总讨论回扣的细节。你彻底堕落了。", stats: { FACE: 15, WEALTH: 15000, SOBRIETY: -10 }, next: 't12_dark_2' },
+      { text: "假装配合", outcome: "你表面上配合，但内心在挣扎。", stats: { FACE: 5, WEALTH: 10000, SOBRIETY: -5 }, next: 't12_dark_2' }
+    ],
+    "Turn 11: Dark Deal", "The corruption deepens.", []
+  ),
+
+  't12_dark_2': createNode(
+    't12_dark_2', 12, IMG_DINNER_CLOSEUP,
+    "第十二轮：同流合污",
+    "老张发现了你和雷总的交易。他威胁要举报你，除非你分他一半。",
+    [
+      { text: "分他一半", outcome: "你妥协了。老张拿到了钱，你们成了共犯。", stats: { WEALTH: -7500, FACE: -10 }, next: 't13_dark_3' },
+      { text: "威胁他", outcome: "你反过来威胁老张，说他也有把柄在你手里。", stats: { FACE: -20, WEALTH: 0 }, next: 't13_dark_3' }
+    ],
+    "Turn 12: Corruption", "Zhang knows.", []
+  ),
+
+  't13_dark_3': createNode(
+    't13_dark_3', 13, IMG_CHAOS,
+    "第十三轮：道德沦丧",
+    "你开始享受这种权力。你可以用钱解决一切问题。但你晚上开始做噩梦。",
+    [
+      { text: "继续堕落", outcome: "你决定彻底放弃道德。只要能赚钱，什么都做。", stats: { WEALTH: 20000, FACE: -30, SOBRIETY: -15 }, next: 't14_dark_4' },
+      { text: "内心挣扎", outcome: "你开始后悔，但已经回不了头了。", stats: { SOBRIETY: -20, FACE: -10 }, next: 't14_dark_4' }
+    ],
+    "Turn 13: Moral Decay", "The darkness grows.", []
+  ),
+
+  't14_dark_4': createNode(
+    't14_dark_4', 14, IMG_BOSS,
+    "第十四轮：权力游戏",
+    "你发现公司里还有更多人在做同样的事。你加入了一个腐败的网络。",
+    [
+      { text: "成为核心成员", outcome: "你成为了这个网络的核心成员。你的财富和权力都在增长。", stats: { WEALTH: 50000, FACE: 30, HEALTH: -10 }, next: 't15_dark_5' },
+      { text: "保持边缘", outcome: "你选择保持边缘位置，不想陷得太深。", stats: { WEALTH: 25000, FACE: 10 }, next: 't15_dark_5' }
+    ],
+    "Turn 14: Power", "The network expands.", []
+  ),
+
+  't15_dark_5': createNode(
+    't15_dark_5', 15, IMG_DINNER_OVERVIEW,
+    "第十五轮：无法回头",
+    "你意识到你已经无法回头了。你成了你曾经鄙视的那种人。",
+    [
+      { text: "接受现实", outcome: "你接受了这个现实。你已经变了，再也回不去了。", stats: { FACE: -50, WEALTH: 0 }, next: 't16_dark_showdown' },
+      { text: "试图退出", outcome: "你试图退出，但他们不允许。你知道的太多了。", stats: { FACE: -30, SOBRIETY: -25 }, next: 't16_dark_showdown' }
+    ],
+    "Turn 15: No Return", "Too deep now.", []
+  ),
+
+  't16_dark_showdown': createNode(
+    't16_dark_showdown', 16, IMG_CHAOS,
+    "第十六轮：黑暗结局",
+    "你站在镜子前，看着自己。你已经不认识这个人了。",
+    [
+      { text: "继续下去", outcome: "你决定继续下去。既然已经黑了，就黑到底。", stats: { WEALTH: 100000, FACE: -100, SOBRIETY: -30 }, next: 't17_dark_1' },
+      { text: "试图改变", outcome: "你试图改变，但已经太晚了。", stats: { FACE: -50, SOBRIETY: -20 }, next: 't17_dark_1' }
+    ],
+    "Turn 16: Dark End", "The mirror doesn't lie.", []
+  ),
+
+  't17_dark_1': createNode(
+    't17_dark_1', 17, IMG_DINNER_OVERVIEW,
+    "第十七轮：黑暗的代价",
+    "你的财富在增长，但你的灵魂在枯萎。你开始用酒精麻痹自己。",
+    [
+      { text: "继续喝酒", outcome: "你继续用酒精逃避现实。", stats: { SOBRIETY: -25, HEALTH: -15, WEALTH: 0 }, next: 't18_dark_2' },
+      { text: "试图清醒", outcome: "你试图保持清醒，但压力太大了。", stats: { SOBRIETY: -15, FACE: -10 }, next: 't18_dark_2' }
+    ],
+    "Turn 17: Dark Cost", "The price of corruption.", []
+  ),
+
+  't18_dark_2': createNode(
+    't18_dark_2', 18, IMG_BILL,
+    "第十八轮：空虚的胜利",
+    "你得到了你想要的一切：钱、权力、地位。但你感觉不到快乐。",
+    [
+      { text: "继续追求更多", outcome: "你决定追求更多。也许更多钱能填补内心的空虚。", stats: { WEALTH: 200000, FACE: -80, SOBRIETY: -20 }, next: 't19_dark_3' },
+      { text: "反思自己", outcome: "你开始反思，但已经太晚了。", stats: { FACE: -40, SOBRIETY: -15 }, next: 't19_dark_3' }
+    ],
+    "Turn 18: Empty Victory", "What was it all for?", []
+  ),
+
+  't19_dark_3': createNode(
+    't19_dark_3', 19, IMG_DAWN,
+    "第十九轮：孤独的夜晚",
+    "你独自坐在豪华的办公室里，看着窗外的城市。你拥有了一切，但失去了自己。",
+    [
+      { text: "继续堕落", outcome: "你决定继续下去。已经没有回头路了。", stats: { WEALTH: 0, FACE: -100, SOBRIETY: -30 }, next: 't20_dark_end' },
+      { text: "最后的挣扎", outcome: "你试图找回自己，但已经太晚了。", stats: { FACE: -60, SOBRIETY: -25 }, next: 't20_dark_end' }
+    ],
+    "Turn 19: Lonely Night", "Alone at the top.", []
+  ),
+
+  't20_dark_end': createNode(
+    't20_dark_end', 20, IMG_DAWN,
+    "第二十轮：黑暗的黎明",
+    "新的一天开始了。你看着镜子里的自己，不知道这个人是谁。",
+    [
+      { text: "继续生活", outcome: "你继续生活，但你知道你已经死了。", stats: { FACE: -50, SOBRIETY: -20 }, next: 'ending_dark' }
+    ],
+    "Turn 20: Dark Dawn", "A new day, same darkness.", []
+  ),
+
+  'ending_dark': createNode(
+    'ending_dark', 21, IMG_DAWN,
+    "结局：黑暗的胜利",
+    "你得到了你想要的一切，但失去了最重要的东西：你自己。",
+    [], "Ending: Dark Victory", "You won, but at what cost?", []
   ),
 
   't17_crash': createNode(

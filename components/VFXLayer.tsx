@@ -1,11 +1,19 @@
 import React from 'react';
-import { PlayerStats, StatType } from '../types';
+import { PlayerStats, StatType, GameState } from '../types';
 
 interface VFXLayerProps {
   stats: PlayerStats;
+  gameState: GameState;
 }
 
-export const VFXLayer: React.FC<VFXLayerProps> = ({ stats }) => {
+export const VFXLayer: React.FC<VFXLayerProps> = ({ stats, gameState }) => {
+  // 如果游戏已结束（GAME_OVER 或 VICTORY），禁用所有视觉效果
+  const isEnding = gameState === GameState.GAME_OVER || gameState === GameState.VICTORY;
+  
+  if (isEnding) {
+    return null; // 游戏结束时，不渲染任何视觉效果
+  }
+
   // Sobriety Effect (Blur & Double Vision)
   const sobriety = stats[StatType.SOBRIETY];
   const isGameOver = sobriety <= 0;
@@ -26,21 +34,18 @@ export const VFXLayer: React.FC<VFXLayerProps> = ({ stats }) => {
   return (
     <div className="fixed inset-0 pointer-events-none z-[100] overflow-hidden">
       {/* 
-        Blur Layer 
-        Using 'backdrop-blur' can be heavy, so we adjust opacity.
-        If drunk, we animate opacity to create "waves" of dizziness.
+        Blur Layer with Flicker Effect
+        Using 'backdrop-blur' with flickering animation when drunk.
+        If drunk, we animate opacity to create "flickering" blur effect.
       */}
       <div 
-        className={`absolute inset-0 transition-all duration-1000 ease-in-out bg-transparent`}
+        className={`absolute inset-0 bg-transparent ${isDrunk && !isGameOver ? 'animate-blur-flicker' : ''}`}
         style={{ 
           backdropFilter: `blur(${isGameOver ? 10 : blurStrength}px)`,
-          // If game over, opacity 1. If drunk, pulse opacity. If sober, opacity 0.
+          // If game over, opacity 1. If drunk, flicker opacity. If sober, opacity 0.
           opacity: isGameOver ? 1 : isDrunk ? undefined : 0,
         }}
-      >
-        {/* Helper div to handle the pulsing animation separate from the style prop to avoid conflicts */}
-         <div className={`w-full h-full ${isDrunk && !isGameOver ? 'animate-pulse' : ''} bg-transparent`}></div>
-      </div>
+      />
 
       {/* Double Vision / Ghosting Layer - Only active when pulsing */}
       {isDrunk && (
