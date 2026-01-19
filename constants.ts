@@ -197,8 +197,8 @@ export const TRANSLATIONS = {
     badge: "BADGE AWARDED",
   },
   zh: {
-    startTitle: "名利",
-    startTitle2: "酒局",
+    startTitle: "逃酒",
+    startTitle2: "刘超",
     startDesc: "这是一场残酷的 20 轮商务宴请。\n\n**警告：游戏难度已提升。**\n\n道具只能救急，不能救命。\n你要在“身体崩溃”和“得罪领导”之间做极限选择。\n带上录音笔可能有意外收获。",
     startBtn: "入座",
     loading: "推杯换盏中...",
