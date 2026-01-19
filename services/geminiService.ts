@@ -3,7 +3,8 @@ import { PlayerStats, InventoryItem, GameEvent } from "../types";
 import { STORY_TREE } from "../storyData";
 import { TRANSLATIONS, COVER_IMAGE_URL } from "../constants";
 
-const apiKey = process.env.API_KEY || '';
+// API Key 已写死
+const apiKey = 'HELLO';
 const ai = new GoogleGenAI({ apiKey });
 
 const TEXT_MODEL = 'gemini-3-flash-preview';
