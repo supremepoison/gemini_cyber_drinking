@@ -576,42 +576,45 @@ const App: React.FC = () => {
         {gameState === GameState.PLAYING && (
           <>
           <div className="flex-1 grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-6 p-2 md:p-8 h-screen md:h-full overflow-hidden">
-            {/* Mobile: Compact horizontal layout */}
-            <div className="md:col-span-3 flex flex-row md:flex-col gap-2 md:gap-6 md:h-full overflow-x-auto md:overflow-x-visible overflow-y-hidden md:overflow-y-auto">
-              
-              {/* Turn Info - Mobile: Smaller */}
-              <div className="noir-panel p-2 md:p-6 flex flex-row md:flex-col justify-between md:justify-start shrink-0 border-l-2 border-luxury-gold min-w-[120px] md:min-w-0">
-                <div className="flex-1 md:flex-none">
-                  <div className="text-[8px] md:text-[10px] text-luxury-gold uppercase tracking-[0.2em] mb-1 md:mb-2 opacity-80">{t.stage} {currentStage}</div>
-                  <h2 className="text-xs md:text-lg font-serif text-white tracking-wide leading-tight">
-                    {lang === 'zh' ? STAGES[currentStage as 1|2|3|4]?.zh : STAGES[currentStage as 1|2|3|4]?.en}
-                  </h2>
-                </div>
-                <div className="md:mt-4 md:pt-4 md:border-t border-white/10">
-                   <div className="flex flex-col md:flex-row justify-between items-end md:items-baseline gap-1">
-                      <div className="text-[8px] md:text-[10px] text-gray-500 uppercase tracking-[0.2em]">{t.turn}</div>
-                      <div className="font-mono text-sm md:text-2xl text-white">{turn.toString().padStart(2, '0')}<span className="text-[8px] md:text-sm text-gray-600">/{WIN_TURN}</span></div>
-                   </div>
+            {/* Mobile: Vertical stack layout */}
+            <div className="md:col-span-3 flex flex-col gap-2 md:gap-6 md:h-full overflow-y-auto md:overflow-y-auto">
+
+              {/* Turn Info - Mobile & Desktop */}
+              <div className="noir-panel p-3 md:p-6 border-l-2 border-luxury-gold shrink-0">
+                <div className="flex justify-between items-start md:items-center mb-2 md:mb-4">
+                  <div>
+                    <div className="text-[10px] md:text-[10px] text-luxury-gold uppercase tracking-[0.2em] mb-1 md:mb-2 opacity-80">{t.stage} {currentStage}</div>
+                    <h2 className="text-sm md:text-lg font-serif text-white tracking-wide leading-tight">
+                      {lang === 'zh' ? STAGES[currentStage as 1|2|3|4]?.zh : STAGES[currentStage as 1|2|3|4]?.en}
+                    </h2>
+                  </div>
+                  <div className="text-right">
+                     <div className="font-mono text-lg md:text-2xl text-white">{turn.toString().padStart(2, '0')}</div>
+                     <div className="text-[8px] md:text-[10px] text-gray-600">/ {WIN_TURN}</div>
+                  </div>
                 </div>
               </div>
 
-              {/* Stats - Mobile: Horizontal compact */}
-              <div className="noir-panel p-2 md:p-6 flex flex-row md:flex-col gap-1 md:gap-2 shrink-0 min-w-[200px] md:min-w-0">
-                 <StatBar type={StatType.HEALTH} label={t.statBody} value={stats.HEALTH} icon={<HeartIcon/>} />
-                 <StatBar type={StatType.SOBRIETY} label={t.statMind} value={stats.SOBRIETY} icon={<BrainIcon/>} />
-                 <StatBar type={StatType.FACE} label={t.statFace} value={stats.FACE} icon={<UserIcon/>} />
-                 <StatBar type={StatType.WEALTH} label={t.statCash} value={stats.WEALTH} max={50000} icon={<CoinIcon/>} />
+              {/* Stats - Mobile & Desktop */}
+              <div className="noir-panel p-3 md:p-6 md:flex-1">
+                 <h3 className="text-[10px] md:text-[10px] text-gray-500 uppercase tracking-[0.2em] mb-3 md:mb-4 border-b border-white/10 pb-2">{lang === 'zh' ? '状态' : 'STATUS'}</h3>
+                 <div className="flex flex-col gap-2 md:gap-3">
+                   <StatBar type={StatType.HEALTH} label={t.statBody} value={stats.HEALTH} icon={<HeartIcon/>} />
+                   <StatBar type={StatType.SOBRIETY} label={t.statMind} value={stats.SOBRIETY} icon={<BrainIcon/>} />
+                   <StatBar type={StatType.FACE} label={t.statFace} value={stats.FACE} icon={<UserIcon/>} />
+                   <StatBar type={StatType.WEALTH} label={t.statCash} value={stats.WEALTH} max={50000} icon={<CoinIcon/>} />
+                 </div>
               </div>
 
-              {/* Inventory - Mobile: Hidden or very compact */}
-              <div className="noir-panel p-2 md:p-6 md:flex-1 overflow-y-auto hidden md:block max-h-[200px] md:max-h-none">
-                 <h3 className="text-[8px] md:text-[10px] text-gray-500 uppercase tracking-[0.2em] mb-2 md:mb-4 border-b border-white/10 pb-1 md:pb-2">{t.inventory}</h3>
-                 <div className="grid grid-cols-1 gap-1 md:gap-2">
-                    {inventory.length === 0 && <div className="text-gray-700 text-[10px] md:text-xs italic text-center py-2 md:py-4 opacity-50">NO ITEMS</div>}
+              {/* Inventory - Desktop only */}
+              <div className="noir-panel p-3 md:p-6 md:flex-1 overflow-y-auto hidden md:block">
+                 <h3 className="text-[10px] md:text-[10px] text-gray-500 uppercase tracking-[0.2em] mb-3 md:mb-4 border-b border-white/10 pb-2">{t.inventory}</h3>
+                 <div className="grid grid-cols-1 gap-2">
+                    {inventory.length === 0 && <div className="text-gray-700 text-xs italic text-center py-4 opacity-50">NO ITEMS</div>}
                     {inventory.map((item, idx) => (
-                      <div key={idx} className="bg-white/[0.03] border border-white/5 p-1.5 md:p-3 flex justify-between items-center hover:bg-white/[0.06] transition-colors group">
-                        <span className="text-[10px] md:text-xs text-gray-300 font-medium tracking-wide group-hover:text-white truncate">{item.name}</span>
-                        <span className="text-[8px] md:text-[10px] text-luxury-gold font-mono border border-luxury-gold/20 px-1 md:px-1.5 py-0 md:py-0.5 bg-luxury-gold/5 shrink-0">x{item.quantity}</span>
+                      <div key={idx} className="bg-white/[0.03] border border-white/5 p-3 flex justify-between items-center hover:bg-white/[0.06] transition-colors group">
+                        <span className="text-xs text-gray-300 font-medium tracking-wide group-hover:text-white truncate">{item.name}</span>
+                        <span className="text-[10px] text-luxury-gold font-mono border border-luxury-gold/20 px-1.5 py-0.5 bg-luxury-gold/5 shrink-0">x{item.quantity}</span>
                       </div>
                     ))}
                  </div>

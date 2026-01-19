@@ -30,27 +30,26 @@ export const StatBar: React.FC<StatBarProps> = ({ label, value, max = 100, type,
   const activeSegments = Math.ceil(value / valuePerSegment);
 
   return (
-    <div className="flex flex-col md:flex-col w-full mb-1 md:mb-4 group">
-      <div className="flex justify-between items-center mb-0.5 md:mb-1.5 px-0.5">
-        <div className="flex items-center gap-1 md:gap-2 text-[8px] md:text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 group-hover:text-gray-300 transition-colors">
-          <span className="opacity-70 w-2 h-2 md:w-3 md:h-3 flex items-center justify-center">{icon}</span>
-          <span className="hidden md:inline">{label}</span>
-          <span className="md:hidden">{label.substring(0, 3)}</span>
+    <div className="flex flex-col w-full group">
+      <div className="flex justify-between items-center mb-1.5 px-0.5">
+        <div className="flex items-center gap-2 text-[10px] md:text-[10px] uppercase tracking-[0.15em] font-bold text-gray-400 group-hover:text-gray-200 transition-colors">
+          <span className="opacity-80 w-3 h-3 flex items-center justify-center">{icon}</span>
+          <span>{label}</span>
         </div>
-        <span className={`font-mono text-[10px] md:text-xs font-bold ${activeSegments < 5 && type !== StatType.WEALTH ? 'text-red-500 animate-pulse' : 'text-gray-300'}`}>
+        <span className={`font-mono text-[11px] md:text-xs font-bold ${activeSegments < 5 && type !== StatType.WEALTH ? 'text-red-500 animate-pulse' : 'text-gray-200'}`}>
           {Math.round(value)}
-          <span className="text-gray-600 text-[8px] md:text-[10px] ml-0.5 md:ml-1">/ {max}</span>
+          <span className="text-gray-500 text-[9px] md:text-[10px] ml-1">/ {max}</span>
         </span>
       </div>
-      
+
       {/* Segmented Bar */}
-      <div className="flex gap-[1px] md:gap-[2px] h-1.5 md:h-2 w-full">
+      <div className="flex gap-[2px] md:gap-[2px] h-2 md:h-2 w-full">
         {Array.from({ length: segments }).map((_, i) => (
-          <div 
+          <div
             key={i}
             className={`flex-1 rounded-[1px] transition-all duration-300 ${
-              i < activeSegments 
-                ? COLORS[type] 
+              i < activeSegments
+                ? COLORS[type]
                 : `${DIM_COLORS[type]} border border-white/5`
             }`}
           />
