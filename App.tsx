@@ -255,34 +255,34 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="h-full w-full bg-[#050505] text-gray-100 font-sans flex items-center justify-center relative overflow-hidden">
+    <div className="min-h-screen w-full bg-[#050505] text-gray-100 font-sans flex items-center justify-center relative">
       {/* Cinematic Background Layer */}
-      <div className="absolute inset-0 transition-all duration-1000 ease-in-out z-0" style={backgroundStyle}></div>
+      <div className="fixed inset-0 transition-all duration-1000 ease-in-out z-0" style={backgroundStyle}></div>
       {/* Dark Overlay for Text Readability */}
-      <div className="absolute inset-0 bg-black/70 z-0"></div>
+      <div className="fixed inset-0 bg-black/70 z-0"></div>
       
       {/* Noise & Scanlines & VFX */}
-      <div className="absolute inset-0 bg-grain opacity-20 z-10 pointer-events-none"></div>
+      <div className="fixed inset-0 bg-grain opacity-20 z-10 pointer-events-none"></div>
       <div className="scanlines z-10"></div>
       <div className="vignette z-10"></div>
       <VFXLayer stats={stats} />
 
-      <div className="w-full max-w-7xl h-full md:h-[95vh] flex flex-col relative z-20">
+      <div className="w-full max-w-7xl min-h-screen md:min-h-[95vh] flex flex-col relative z-20 py-4 md:py-0">
         
         {gameState !== GameState.PLAYING && (
-          <div className="absolute inset-0 z-50 flex items-center justify-center p-4">
+          <div className="relative md:absolute inset-0 z-50 flex items-center justify-center p-4 min-h-screen md:min-h-0">
              
              {/* START SCREEN */}
              {gameState === GameState.START && (
-               <div className="text-center w-full max-w-4xl p-10 relative">
-                 <h1 className="text-6xl md:text-9xl font-serif text-white mb-2 tracking-tighter drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">{t.startTitle}</h1>
-                 <h1 className="text-6xl md:text-9xl font-serif text-luxury-gold italic mb-8 tracking-tighter drop-shadow-[0_0_30px_rgba(212,175,55,0.6)]">{t.startTitle2}</h1>
-                 <div className="flex gap-4 justify-center mb-16">
+               <div className="text-center w-full max-w-4xl p-6 md:p-10 relative">
+                 <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-serif text-white mb-2 tracking-tighter drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">{t.startTitle}</h1>
+                 <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-serif text-luxury-gold italic mb-6 md:mb-8 tracking-tighter drop-shadow-[0_0_30px_rgba(212,175,55,0.6)]">{t.startTitle2}</h1>
+                 <div className="flex gap-4 justify-center mb-8 md:mb-16">
                    <button onClick={() => setLang('en')} className={`text-xs font-bold tracking-widest px-4 py-1.5 border transition-all ${lang === 'en' ? 'bg-luxury-gold text-black border-luxury-gold' : 'border-white/20 text-gray-500 hover:text-white'}`}>EN</button>
                    <button onClick={() => setLang('zh')} className={`text-xs font-bold tracking-widest px-4 py-1.5 border transition-all ${lang === 'zh' ? 'bg-luxury-gold text-black border-luxury-gold' : 'border-white/20 text-gray-500 hover:text-white'}`}>中文</button>
                  </div>
-                 <p className="text-gray-400 mb-12 whitespace-pre-line text-lg font-light tracking-wide">{t.startDesc}</p>
-                 <button onClick={initGame} className="group relative px-16 py-5 bg-transparent border border-white/20 text-white font-bold tracking-[0.4em] uppercase overflow-hidden transition-all hover:border-luxury-gold hover:text-luxury-gold">
+                 <p className="text-gray-400 mb-8 md:mb-12 whitespace-pre-line text-sm md:text-lg font-light tracking-wide px-4">{t.startDesc}</p>
+                 <button onClick={initGame} className="group relative px-8 md:px-16 py-4 md:py-5 bg-transparent border border-white/20 text-white font-bold tracking-[0.4em] uppercase overflow-hidden transition-all hover:border-luxury-gold hover:text-luxury-gold text-sm md:text-base">
                    <span className="relative z-10">{t.startBtn}</span>
                    <div className="absolute inset-0 bg-white/5 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500"></div>
                  </button>
@@ -291,13 +291,13 @@ const App: React.FC = () => {
 
              {/* INTRO */}
              {gameState === GameState.INTRO && currentScenario && (
-               <div className="noir-panel p-8 md:p-16 max-w-3xl rounded-sm border-l-4 border-l-luxury-gold">
-                 <div className="text-xs font-bold text-luxury-gold uppercase tracking-[0.4em] mb-6">{t.introTitle}</div>
-                 <h2 className="text-3xl md:text-5xl text-white font-serif mb-8">{currentScenario.name}</h2>
-                 <p className="text-gray-300 text-lg leading-loose mb-12 whitespace-pre-line font-light border-t border-white/10 pt-8">
+               <div className="noir-panel p-6 md:p-16 max-w-3xl rounded-sm border-l-4 border-l-luxury-gold mx-4 md:mx-0">
+                 <div className="text-xs font-bold text-luxury-gold uppercase tracking-[0.4em] mb-4 md:mb-6">{t.introTitle}</div>
+                 <h2 className="text-2xl md:text-5xl text-white font-serif mb-6 md:mb-8">{currentScenario.name}</h2>
+                 <p className="text-gray-300 text-sm md:text-lg leading-loose mb-8 md:mb-12 whitespace-pre-line font-light border-t border-white/10 pt-6 md:pt-8">
                     {currentScenario.storyIntro}
                  </p>
-                 <button onClick={enterShop} className="w-full py-4 bg-white/5 border border-white/10 text-white font-bold tracking-widest uppercase hover:bg-luxury-gold hover:text-black transition-all">
+                 <button onClick={enterShop} className="w-full py-4 bg-white/5 border border-white/10 text-white font-bold tracking-widest uppercase hover:bg-luxury-gold hover:text-black transition-all text-sm md:text-base">
                     {t.begin}
                  </button>
                </div>
@@ -305,20 +305,20 @@ const App: React.FC = () => {
 
              {/* SHOP */}
              {gameState === GameState.SHOP && (
-               <div className="w-full max-w-5xl h-[85vh] md:h-auto">
+               <div className="w-full max-w-5xl h-[90vh] md:h-auto mx-4 md:mx-0">
                  <ShopPanel stats={stats} inventory={inventory} onBuy={handleBuyItem} onSell={handleSellItem} onContinue={startGameLoop} lang={lang} />
                </div>
              )}
 
              {/* ENDING SCREEN */}
              {(gameState === GameState.GAME_OVER || gameState === GameState.VICTORY) && (
-               <div className="noir-panel p-10 md:p-14 text-center rounded-sm max-w-3xl flex flex-col items-center overflow-y-auto max-h-[90vh] border-t-4 border-t-white/10">
+               <div className="noir-panel p-6 md:p-14 text-center rounded-sm max-w-3xl flex flex-col items-center overflow-y-auto max-h-[90vh] border-t-4 border-t-white/10 mx-4 md:mx-0">
                   
-                  <div className={`text-sm tracking-[0.5em] uppercase font-bold mb-6 ${gameState === GameState.VICTORY ? 'text-luxury-gold' : 'text-red-600'}`}>
+                  <div className={`text-xs md:text-sm tracking-[0.5em] uppercase font-bold mb-4 md:mb-6 ${gameState === GameState.VICTORY ? 'text-luxury-gold' : 'text-red-600'}`}>
                     {t.endingTitle}
                   </div>
 
-                  <h2 className={`text-5xl md:text-7xl font-serif mb-8 ${gameState === GameState.VICTORY ? 'text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]' : 'text-gray-500'}`}>
+                  <h2 className={`text-3xl md:text-5xl lg:text-7xl font-serif mb-6 md:mb-8 ${gameState === GameState.VICTORY ? 'text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]' : 'text-gray-500'}`}>
                     {gameState === GameState.VICTORY ? t.victory : t.gameOver}
                   </h2>
                   
@@ -370,27 +370,27 @@ const App: React.FC = () => {
 
         {/* MAIN GAMEPLAY */}
         {gameState === GameState.PLAYING && (
-          <div className="flex-1 grid grid-cols-1 md:grid-cols-12 gap-6 p-4 md:p-8 h-full overflow-hidden">
-            <div className="md:col-span-3 flex flex-col gap-6 h-full overflow-hidden">
+          <div className="flex-1 grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 p-4 md:p-8 min-h-screen md:min-h-0 md:h-full">
+            <div className="md:col-span-3 flex flex-col gap-4 md:gap-6 md:h-full">
               
               {/* Turn Info */}
-              <div className="noir-panel p-6 flex flex-col justify-between shrink-0 border-l-2 border-luxury-gold">
+              <div className="noir-panel p-4 md:p-6 flex flex-col justify-between shrink-0 border-l-2 border-luxury-gold">
                 <div>
                   <div className="text-[10px] text-luxury-gold uppercase tracking-[0.2em] mb-2 opacity-80">{t.stage} {currentStage}</div>
-                  <h2 className="text-lg font-serif text-white tracking-wide">
+                  <h2 className="text-base md:text-lg font-serif text-white tracking-wide">
                     {lang === 'zh' ? STAGES[currentStage as 1|2|3|4]?.zh : STAGES[currentStage as 1|2|3|4]?.en}
                   </h2>
                 </div>
                 <div className="mt-4 pt-4 border-t border-white/10">
                    <div className="flex justify-between items-baseline">
                       <div className="text-[10px] text-gray-500 uppercase tracking-[0.2em]">{t.turn}</div>
-                      <div className="font-mono text-2xl text-white">{turn.toString().padStart(2, '0')}<span className="text-sm text-gray-600">/{WIN_TURN}</span></div>
+                      <div className="font-mono text-xl md:text-2xl text-white">{turn.toString().padStart(2, '0')}<span className="text-xs md:text-sm text-gray-600">/{WIN_TURN}</span></div>
                    </div>
                 </div>
               </div>
 
               {/* Stats */}
-              <div className="noir-panel p-6 flex flex-col gap-2 shrink-0">
+              <div className="noir-panel p-4 md:p-6 flex flex-col gap-2 shrink-0">
                  <StatBar type={StatType.HEALTH} label={t.statBody} value={stats.HEALTH} icon={<HeartIcon/>} />
                  <StatBar type={StatType.SOBRIETY} label={t.statMind} value={stats.SOBRIETY} icon={<BrainIcon/>} />
                  <StatBar type={StatType.FACE} label={t.statFace} value={stats.FACE} icon={<UserIcon/>} />
@@ -398,7 +398,7 @@ const App: React.FC = () => {
               </div>
 
               {/* Inventory */}
-              <div className="noir-panel p-6 flex-1 overflow-y-auto">
+              <div className="noir-panel p-4 md:p-6 md:flex-1 overflow-y-auto max-h-[200px] md:max-h-none">
                  <h3 className="text-[10px] text-gray-500 uppercase tracking-[0.2em] mb-4 border-b border-white/10 pb-2">{t.inventory}</h3>
                  <div className="grid grid-cols-1 gap-2">
                     {inventory.length === 0 && <div className="text-gray-700 text-xs italic text-center py-4 opacity-50">NO ITEMS</div>}
@@ -412,7 +412,7 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            <div className="md:col-span-9 h-full flex flex-col overflow-hidden">
+            <div className="md:col-span-9 md:h-full flex flex-col min-h-[500px] md:min-h-0">
                {currentEvent && (
                  <EventDisplay event={currentEvent} onChoice={handleChoice} loading={loading} lang={lang} />
                )}

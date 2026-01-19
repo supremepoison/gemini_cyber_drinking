@@ -13,7 +13,7 @@ export const EventDisplay: React.FC<EventDisplayProps> = ({ event, onChoice, loa
   const t = TRANSLATIONS[lang];
 
   return (
-    <div className="relative flex flex-col h-full noir-panel rounded-sm overflow-hidden border-t border-b border-white/10 md:border border-white/10">
+    <div className="relative flex flex-col min-h-[500px] md:h-full noir-panel rounded-sm overflow-hidden border-t border-b border-white/10 md:border border-white/10">
       
       {/* Loading Overlay with Glitch Effect */}
       {loading && (
@@ -26,7 +26,7 @@ export const EventDisplay: React.FC<EventDisplayProps> = ({ event, onChoice, loa
       )}
 
       {/* Image & Description Section */}
-      <div className="relative flex-1 min-h-[40%] md:min-h-[50%] overflow-hidden">
+      <div className="relative flex-1 min-h-[250px] md:min-h-[40%] overflow-hidden">
         {/* Background Image with Gradient Overlay */}
         <div 
           className="absolute inset-0 bg-cover bg-center transition-transform duration-[20s] ease-linear hover:scale-105"
@@ -35,24 +35,24 @@ export const EventDisplay: React.FC<EventDisplayProps> = ({ event, onChoice, loa
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-[#050505]"></div>
         
         {/* Text Content */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 pb-4 bg-gradient-to-t from-[#050505] via-[#050505]/90 to-transparent">
-          <div className="flex items-center gap-3 mb-3">
-             <div className="w-2 h-2 bg-luxury-gold rotate-45 shadow-[0_0_8px_#D4AF37]"></div>
-             <h2 className="text-2xl md:text-4xl font-serif text-white tracking-wide drop-shadow-lg">
+        <div className="absolute bottom-0 left-0 right-0 p-4 md:p-10 pb-4 bg-gradient-to-t from-[#050505] via-[#050505]/90 to-transparent">
+          <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-3">
+             <div className="w-2 h-2 bg-luxury-gold rotate-45 shadow-[0_0_8px_#D4AF37] flex-shrink-0"></div>
+             <h2 className="text-xl md:text-2xl lg:text-4xl font-serif text-white tracking-wide drop-shadow-lg">
                 {event.title}
              </h2>
           </div>
-          <p className="text-sm md:text-lg text-gray-300 font-sans leading-relaxed tracking-wide font-light max-w-4xl border-l-2 border-luxury-gold/30 pl-4">
+          <p className="text-xs md:text-sm lg:text-lg text-gray-300 font-sans leading-relaxed tracking-wide font-light max-w-4xl border-l-2 border-luxury-gold/30 pl-3 md:pl-4">
             {event.description}
           </p>
         </div>
       </div>
 
       {/* Choices Area */}
-      <div className="bg-[#050505] border-t border-white/5 p-4 md:p-6 space-y-3 z-10">
+      <div className="bg-[#050505] border-t border-white/5 p-3 md:p-6 space-y-2 md:space-y-3 z-10">
         <div className="text-[10px] text-gray-600 uppercase tracking-[0.3em] font-bold mb-2 ml-1">{t.select}</div>
         
-        <div className="grid grid-cols-1 gap-3">
+        <div className="grid grid-cols-1 gap-2 md:gap-3">
           {event.choices.map((choice, idx) => {
             const isRisky = choice.statChanges[StatType.HEALTH] && choice.statChanges[StatType.HEALTH]! < 0;
             const isItem = !!choice.itemUsed;
@@ -62,17 +62,17 @@ export const EventDisplay: React.FC<EventDisplayProps> = ({ event, onChoice, loa
                 key={idx}
                 onClick={() => !loading && onChoice(choice)}
                 disabled={loading}
-                className={`group relative w-full p-4 md:p-5 border text-left transition-all duration-300
+                className={`group relative w-full p-3 md:p-5 border text-left transition-all duration-300
                   ${loading 
                     ? 'border-white/5 opacity-50 cursor-wait' 
-                    : 'border-white/10 bg-white/[0.02] hover:bg-white/[0.05] hover:border-luxury-gold/50 cursor-pointer'
+                    : 'border-white/10 bg-white/[0.02] hover:bg-white/[0.05] hover:border-luxury-gold/50 cursor-pointer active:bg-white/[0.08]'
                   }
                   ${isItem ? 'border-l-4 border-l-luxury-blue' : 'hover:border-l-4 hover:border-l-luxury-gold'}
                 `}
               >
-                <div className="flex justify-between items-start md:items-center flex-col md:flex-row gap-2">
+                <div className="flex justify-between items-start flex-col md:flex-row gap-2">
                   <div className="flex-1">
-                    <span className="text-gray-200 font-medium text-sm md:text-base tracking-wide group-hover:text-white transition-colors">
+                    <span className="text-gray-200 font-medium text-xs md:text-base tracking-wide group-hover:text-white transition-colors">
                       {choice.text}
                     </span>
                     {isItem && (
@@ -81,7 +81,7 @@ export const EventDisplay: React.FC<EventDisplayProps> = ({ event, onChoice, loa
                   </div>
                   
                   {/* Stat Impact Hint - Subtle */}
-                  <div className="flex gap-3 opacity-60 group-hover:opacity-100 transition-opacity text-[10px] font-mono">
+                  <div className="flex gap-2 md:gap-3 opacity-60 group-hover:opacity-100 transition-opacity text-[10px] font-mono flex-wrap">
                     {Object.entries(choice.statChanges).map(([key, val]) => {
                       const v = val as number;
                       if (v === 0) return null;
